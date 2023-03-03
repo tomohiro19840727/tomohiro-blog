@@ -33,7 +33,6 @@ function Blog({ isAuth }) {
       postsText: postText,
       imgUrl: imageUrl,
       createdAt: serverTimestamp(),
-      count: 0,
     });
    });
   });
@@ -52,7 +51,7 @@ function Blog({ isAuth }) {
     <div class="container flex flex-col min-h-screen px-6 py-12 mx-auto">
         <div class="flex-1 lg:flex lg:items-center lg:-mx-6">
             <div class="text-white lg:w-1/2 lg:mx-6">
-                <h1 class="text-2xl font-semibold capitalize lg:text-3xl">sirasu</h1>
+                <h1 class="text-2xl font-semibold capitalize lg:text-3xl">si</h1>
 
                 <p class="max-w-xl mt-6">僕のことを色々書いてね</p>
 

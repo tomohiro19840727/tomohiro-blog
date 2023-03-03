@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, getDocs, increment, limit, orderBy, updateDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, increment, limit, orderBy, query, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { auth, db } from '../firebase';
 import dayjs from "dayjs";
@@ -8,7 +8,7 @@ function Setblog({ isAuth }) {
 
  useEffect(() => {
   const getPosts = async () => {
-    const data = await getDocs(collection(db, "posts"),orderBy("createdAt"));
+    const data = await getDocs(query(collection(db, "posts"),orderBy("createdAt", "desc")));
     
     // console.log(data.docs.map((doc) => ({ ...doc.data({serverTimestamp: "estimate"}).createdAt.toDate(), id: doc.id})))
     
@@ -25,14 +25,14 @@ function Setblog({ isAuth }) {
     window.location.href = "/setblog";
   }
 
-  const handleClick = async (id) => {
-   const postsRef = doc(db, "posts", id)  
+  // const handleClick = async (id) => {
+  //  const postsRef = doc(db, "posts", id)  
 
-   await updateDoc(postsRef, {
-      count: increment(1)
-    });
-    window.location.href = "/setblog";
-  }
+  //  await updateDoc(postsRef, {
+  //     count: increment(1)
+  //   });
+  //   window.location.href = "/setblog";
+  // }
 
   const sortedLists = postList.sort((a, b) => b.createdAt - a.createdAt);
 
@@ -45,9 +45,9 @@ function Setblog({ isAuth }) {
 <div class="max-w-screen-xl px-4 md:px-8 mx-auto">
   
   <div class="mb-10 md:mb-16">
-    <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-6">ブログ</h2>
+    <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-6">Blog</h2>
 
-    <p class="max-w-screen-md text-gray-500 md:text-lg text-center mx-auto">しらすの日々の日常を記録しておくよ、もし気に入ったものがあればどんどんいいねを押して</p>
+    <p class="max-w-screen-md text-gray-500 md:text-lg text-center mx-auto"></p>
   </div>
   
 
@@ -74,14 +74,9 @@ function Setblog({ isAuth }) {
 
         <p class="text-gray-500 font-bold">{post.postsText}</p>
 
-        <h4 className='text-3xl font-bold'>{post.count}</h4>
-        <a href="#_" class="px-5 py-2.5 relative rounded group font-medium text-white  inline-block">
-<span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
-<span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
-<span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
-<span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500"></span>
-<button className="relative text-2xl" onClick={() => handleClick(post.id)}>いいね！</button>
-</a>
+        
+{/* <button className="relative text-2xl" onClick={() => handleClick(post.id)}>いいね！</button> */}
+
             {isAuth &&(
               <>
               <a href="#_" class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
